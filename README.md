@@ -1,255 +1,412 @@
-# 🏦 Italian Financial Data Challenge
+# 🏦 Italian Financial Challenge - Student Repository
 
-Italian corporate financial statements dataset for Machine Learning and Data Mining projects.
+Welcome to the Italian Financial Challenge! This repository contains all the materials you need to complete your machine learning project.
 
-## 📋 Project Description
+## 📋 Quick Links
 
-This repository contains an economic-financial dataset of Italian companies built entirely from public open data sources. It is designed for university ML/DL projects focusing on:
-
-- **Corporate bankruptcy prediction** (binary classification)
-- **Credit scoring** and reliability assessment
-- **Clustering** of financial profiles
-- **Anomaly detection** on financial indicators
-- **Time series forecasting** of performance
-
-## 🎯 Learning Objectives
-
-Students will learn to:
-1. Work with real financial data (not toy datasets)
-2. Handle imbalanced data (bankruptcies are rare)
-3. Feature engineering from financial statements
-4. Model interpretability in a regulated context
-5. Temporal validation (no data leakage)
-
-## 📊 Dataset Structure
-
-### Data Sources
-- **MovImprese** (InfoCamere): company demographics, bankruptcies
-- **ISTAT**: aggregated sectoral data
-- **Business Registry** (sample): public financial statements in XBRL format
-
-### Available Features
-```
-- company_id (anonymized)
-- fiscal_year
-- ateco_sector (2-digit)
-- province, region
-- legal_form
-- years_in_business
-
-# Balance Sheet
-- total_fixed_assets
-- current_assets
-- shareholders_equity
-- total_debt
-- short_term_debt
-- long_term_debt
-
-# Income Statement
-- production_value
-- production_costs
-- operating_income (EBIT)
-- net_profit_loss
-
-# Calculated Indicators
-- roe (Return on Equity)
-- roi (Return on Investment)
-- leverage (Debt/Equity)
-- current_ratio (liquidity)
-- quick_ratio
-- debt_to_assets
-
-# Target Variables
-- bankruptcy_next_year (0/1)
-- revenue_change (%)
-- financial_health_class (A/B/C/D)
-```
-
-## 🗂️ Repository Structure
-
-```
-italian-financial-challenge/
-├── README.md
-├── requirements.txt
-├── environment.yml
-│
-├── data/
-│   ├── raw/                    # Original data (don't commit if large)
-│   ├── interim/                # Data being processed
-│   ├── processed/              # Final datasets ready for ML
-│   └── external/               # External data (ISTAT, ATECO codes)
-│
-├── notebooks/
-│   ├── 01_data_collection.ipynb       # Web scraping and data collection
-│   ├── 02_data_exploration.ipynb      # Complete EDA
-│   ├── 03_feature_engineering.ipynb   # Feature creation
-│   ├── 04_baseline_models.ipynb       # Baseline models
-│   ├── 05_deep_learning.ipynb         # Neural networks
-│   └── 06_results_analysis.ipynb      # Results analysis
-│
-├── src/
-│   ├── __init__.py
-│   ├── data/
-│   │   ├── scraper.py          # Ethical web scraping
-│   │   ├── preprocessor.py     # Data cleaning
-│   │   └── feature_builder.py  # Feature engineering
-│   ├── models/
-│   │   ├── baseline.py         # Logistic, RF, XGBoost
-│   │   ├── neural_nets.py      # MLP, embeddings
-│   │   └── evaluation.py       # Metrics, validation
-│   └── utils/
-│       ├── financial_ratios.py # Financial indicators calculation
-│       └── visualization.py    # Plot utilities
-│
-├── configs/
-│   ├── scraping_config.yaml
-│   └── model_config.yaml
-│
-├── tests/
-│   ├── test_data_quality.py
-│   └── test_feature_engineering.py
-│
-└── docs/
-    ├── challenge_description.md    # Challenge description for students
-    ├── data_dictionary.md          # Complete data dictionary
-    ├── legal_considerations.md     # Legal notes on scraping
-    └── modeling_guidelines.md      # Modeling guidelines
-```
-
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-# Clone repository
-git clone https://github.com/your-username/italian-financial-challenge.git
-cd italian-financial-challenge
-
-# Setup environment (option 1: venv)
-python -m venv venv
-source venv/bin/activate  # on Windows: venv\Scripts\activate
-pip install -r requirements.txt
-
-# Setup environment (option 2: conda)
-conda env create -f environment.yml
-conda activate financial-challenge
-```
-
-### Data Download
-
-```bash
-# Option A: Download pre-processed dataset (recommended for students)
-python src/data/download_dataset.py
-
-# Option B: Regenerate dataset from public sources (time-consuming)
-python src/data/scraper.py --config configs/scraping_config.yaml
-python src/data/preprocessor.py
-```
-
-### Data Exploration
-
-```bash
-jupyter notebook notebooks/02_data_exploration.ipynb
-```
-
-## 📖 Proposed Challenges
-
-### Challenge 1: Bankruptcy Prediction 🎯
-**Difficulty**: Medium
-**Objective**: Predict if a company will go bankrupt within 12 months
-**Metric**: F1-Score, AUC-ROC
-**Constraints**:
-- Handle class imbalance
-- No data leakage (temporal validation)
-- Interpretability required
-
-### Challenge 2: Financial Health Classification 📊
-**Difficulty**: Medium-High
-**Objective**: Classify companies into 4 financial health classes
-**Metric**: Weighted F1-Score
-**Constraints**:
-- Multi-class imbalanced
-- Feature engineering required
-
-### Challenge 3: Revenue Forecasting 📈
-**Difficulty**: High
-**Objective**: Predict next year's revenue change
-**Metric**: RMSE, MAPE
-**Constraints**:
-- Time series aware validation
-- Consider sectoral trends
-
-## 🛠️ Technologies
-
-- **Data Processing**: pandas, numpy, scipy
-- **ML Models**: scikit-learn, xgboost, lightgbm
-- **Deep Learning**: tensorflow/keras, pytorch
-- **Feature Engineering**: feature-engine, category_encoders
-- **Visualization**: matplotlib, seaborn, plotly
-- **Web Scraping**: requests, beautifulsoup4, selenium (if needed)
-- **Imbalanced Learning**: imbalanced-learn
-
-## 📚 Useful Resources
-
-### Public Datasets
-- [MovImprese](https://www.unioncamere.gov.it/download/9154.html) - Company demographics
-- [ISTAT - Companies](http://dati.istat.it/) - Sectoral statistics
-- [Business Registry](https://www.registroimprese.it/) - Public financial statements
-
-### Reference Papers
-- Altman, E. (1968). "Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy"
-- Ohlson, J. (1980). "Financial Ratios and the Probabilistic Prediction of Bankruptcy"
-- Recent deep learning approaches for credit scoring
-
-### Tutorials
-- Imbalanced classification techniques
-- Time series cross-validation
-- Financial feature engineering
-
-## ⚖️ Legal Considerations
-
-Business Registry data is **public** and accessible to all citizens. Scraping must be:
-- **Respectful**: rate limiting, identifying user-agent
-- **Proportionate**: only data necessary for research/education
-- **Cited**: always indicate the source
-
-See `docs/legal_considerations.md` for details.
-
-## 🎓 For Students
-
-### Required Deliverables
-1. **Complete notebook** with EDA, feature engineering, modeling
-2. ** Live Presentation** 
-
-### Evaluation Criteria
-- **Technical quality** (40%): approach soundness, imbalance handling, validation
-- **Creativity** (20%): original feature engineering, innovative approaches
-- **Interpretability** (20%): feature importance analysis, error analysis
-- **Communication** (20%): clarity of report and code
-
-## 🤝 Contributions
-
-This is an educational project. For suggestions or bugs:
-1. Open an Issue
-2. Submit a Pull Request with improvements
-
-## 📄 License
-
-- **Code**: MIT License
-- **Data**: CC-BY 4.0 (cite source: Chamber of Commerce / ISTAT)
-
-## 👥 Authors
-
-Project created for the LUISS
-Academic Year 2024/2025
-
-## 🙏 Acknowledgments
-
-- InfoCamere for the public Business Registry data
-- ISTAT for economic statistics
-- Unioncamere for MovImprese data
+- **[Challenge Description](docs/challenge_description.md)** - READ THIS FIRST! Complete guide to all three challenges
+- **[Data Dictionary](docs/data_dictionary.md)** - Explanation of all variables in the dataset
+- **[Starter Template](notebooks/starter_template.ipynb)** - Jupyter notebook template to get you started
 
 ---
 
-**Note**: This dataset is for **educational and research purposes only**. Do not use for real financial decisions.
-# italian-financial-challenge
+## 🎯 Your Task
+
+Choose **ONE** of three challenges:
+
+1. **Bankruptcy Prediction** (Medium) - Predict if a company will go bankrupt
+2. **Financial Health Classification** (Medium-High) - Classify companies into health categories (A/B/C/D)
+3. **Revenue Forecasting** (High) - Predict next year's revenue change
+
+See [docs/challenge_description.md](docs/challenge_description.md) for full details.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Setup Your Environment
+
+```bash
+# Clone this repository (if you haven't already)
+git clone <your-repo-url>
+cd italian-financial-challenge
+
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate  # On Linux/Mac
+# OR
+venv\Scripts\activate     # On Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. Explore the Data
+
+```bash
+# Launch Jupyter Notebook
+jupyter notebook
+
+# Open notebooks/starter_template.ipynb
+# OR create your own notebook
+```
+
+```python
+# Quick data exploration
+import pandas as pd
+
+# Load the training data
+train_df = pd.read_csv('data/processed/train_data.csv')
+
+print(f"Shape: {train_df.shape}")
+print(f"\nColumns: {train_df.columns.tolist()}")
+print(f"\nFirst rows:")
+train_df.head()
+```
+
+### 3. Read the Documentation
+
+- **[docs/challenge_description.md](docs/challenge_description.md)** - Complete challenge guide with evaluation criteria
+- **[docs/data_dictionary.md](docs/data_dictionary.md)** - Detailed explanation of all variables
+
+### 4. Start Your Analysis
+
+Use the provided template or create your own notebook. Make sure to cover:
+
+1. **Exploratory Data Analysis**
+2. **Data Preprocessing**
+3. **Feature Engineering**
+4. **Model Development**
+5. **Evaluation**
+6. **Interpretation & Business Insights**
+
+---
+
+## 📊 Available Data
+
+### Training Data
+- **File**: `data/processed/train_data.csv`
+- **Observations**: 11,828 company-year records (2018-2021)
+- **Use for**: Model development, cross-validation, feature engineering
+
+### Test Data
+- **File**: `data/processed/test_features.csv`
+- **Observations**: 5,811 company-year records (2022-2023)
+- **Use for**: Final predictions (targets will be used for evaluation)
+- **Note**: Test targets are NOT provided to students
+
+### Data Structure
+
+```
+Data/
+├── processed/
+│   ├── train_data.csv        # Training data WITH targets
+│   └── test_features.csv     # Test data WITHOUT targets (for final predictions)
+```
+
+**Features** (25+ variables):
+- Company info: sector, province, region, legal form, age
+- Balance sheet: assets, equity, debt
+- Income statement: revenue, costs, profit
+- Financial ratios: ROE, ROI, leverage, liquidity ratios
+
+**Targets** (choose based on your challenge):
+- `bankruptcy_next_year` (0/1) - for Challenge 1
+- `financial_health_class` (A/B/C/D) - for Challenge 2
+- `revenue_change` (%) - for Challenge 3
+
+See [docs/data_dictionary.md](docs/data_dictionary.md) for complete variable descriptions.
+
+---
+
+## 📝 Deliverables
+
+### Required Submissions
+
+1. **Jupyter Notebook** (.ipynb file)
+   - Complete analysis from EDA to final model
+   - Well-documented code with markdown explanations
+   - Clear visualizations
+   - Business insights and interpretation
+
+2. **PDF Export** of your notebook
+   - Ensure all cells have been executed
+   - All outputs are visible
+
+3. **Presentation Slides** (PDF or PPTX)
+   - 10-15 minutes + Q&A
+   - Focus on insights, not just technical details
+
+### Evaluation Criteria (100 points)
+
+| Category | Points | What to Focus On |
+|----------|--------|------------------|
+| **Technical Quality** | 40 | Proper methodology, validation, imbalance handling |
+| **Creativity** | 20 | Feature engineering, innovative approaches |
+| **Interpretability** | 20 | Feature importance, error analysis, business insights |
+| **Communication** | 20 | Clear code, visualizations, presentation |
+
+See [docs/challenge_description.md](docs/challenge_description.md) for detailed rubric.
+
+---
+
+## 💡 Tips for Success
+
+### General Tips
+
+1. **Start Early** - Data exploration takes time
+2. **Read Everything** - Challenge description, data dictionary, evaluation criteria
+3. **Document Your Thinking** - Explain WHY you made each decision
+4. **Visualize Often** - Plots reveal insights that numbers hide
+5. **Iterate** - Start simple (baseline), then improve
+
+### Technical Tips
+
+**Avoid Data Leakage:**
+- ✅ Use temporal split (earlier years → later years)
+- ✅ Fit scalers and imputers on train data only
+- ✅ Use only past information to predict future
+- ❌ Don't use random train/test split for time series (Challenge 3)
+- ❌ Don't use target-derived features
+
+**Handle Imbalance** (Challenges 1 & 2):
+- Use appropriate metrics (F1-score, not accuracy)
+- Try SMOTE, class weights, or threshold tuning
+- Evaluate with stratified cross-validation
+
+**Feature Engineering:**
+- Financial domain knowledge (Altman Z-Score, ratios)
+- Temporal features (year-over-year changes, trends)
+- Interaction features (leverage × profitability)
+- Sector benchmarking (company vs industry average)
+
+**Model Interpretation:**
+- Feature importance (built-in or SHAP)
+- Error analysis (which cases are misclassified?)
+- Business translation (explain in non-technical terms)
+
+---
+
+## 📚 Recommended Resources
+
+### Financial Domain
+- [Investopedia - Financial Ratios](https://www.investopedia.com/financial-ratios-4689817)
+- [Altman Z-Score](https://www.investopedia.com/terms/a/altman.asp)
+- Understanding bankruptcy indicators
+
+### Machine Learning
+- [Scikit-learn Documentation](https://scikit-learn.org/)
+- [Handling Imbalanced Data](https://imbalanced-learn.org/)
+- [SHAP for Interpretation](https://shap.readthedocs.io/)
+- Time series cross-validation
+
+### Python Libraries
+```python
+# Data manipulation
+import pandas as pd
+import numpy as np
+
+# Visualization
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Machine Learning
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.preprocessing import StandardScaler, RobustScaler
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from xgboost import XGBClassifier, XGBRegressor
+
+# Imbalanced learning
+from imblearn.over_sampling import SMOTE
+
+# Metrics
+from sklearn.metrics import (
+    classification_report, confusion_matrix,
+    f1_score, roc_auc_score,
+    mean_squared_error, mean_absolute_error
+)
+
+# Interpretation
+import shap
+```
+
+---
+
+## 🆘 Common Issues
+
+### "ModuleNotFoundError"
+```bash
+# Make sure virtual environment is activated
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+# Install missing package
+pip install <package-name>
+```
+
+### "File not found"
+```bash
+# Check you're in the right directory
+pwd  # Should show: .../italian-financial-challenge
+
+# Check data files exist
+ls data/processed/
+# Should show: train_data.csv, test_features.csv
+```
+
+### "My model has very low performance"
+- Check for data leakage (temporal split correct?)
+- For imbalanced data: use F1-score, try SMOTE or class weights
+- For regression: check for outliers, try robust methods
+- Review feature engineering - domain knowledge is key!
+
+### "My results are too good to be true"
+- **Data leakage** is most likely - review your preprocessing!
+- Check temporal split (no future data in training)
+- Verify scaling is fit on train only, then transform test
+- Check you're not using target-derived features
+
+---
+
+## ⚠️ Important Rules
+
+### Academic Integrity
+
+- This is an **INDIVIDUAL** project
+- You may **discuss concepts** with peers
+- You **MUST write your own code** and analysis
+- **Cite all external resources** (code snippets, tutorials, etc.)
+- Plagiarism will result in severe penalties
+
+### Data Ethics
+
+- This data is for **educational purposes only**
+- Do not use for real financial decisions
+- Company data is anonymized - respect privacy
+- Always cite data sources in real-world projects
+
+### Submission
+
+- Ensure all code cells execute without errors
+- Include both .ipynb and PDF versions
+- Submit presentation slides
+- Check that all visualizations are visible
+- Verify you meet minimum performance targets
+
+---
+
+## 📅 Suggested Timeline
+
+| Week | Milestone | Tasks |
+|------|-----------|-------|
+| 1 | Challenge Selection | Choose challenge, explore data |
+| 2 | EDA Complete | Understand data, identify patterns |
+| 3 | Baseline Model | Basic preprocessing, simple model |
+| 4 | Feature Engineering | Create domain-informed features |
+| 5 | Final Model | Tune hyperparameters, optimize |
+| 6 | Interpretation | Feature importance, error analysis, insights |
+| 7 | Submission | Final notebook, presentation prep |
+
+---
+
+## 🎯 Performance Targets
+
+### Challenge 1: Bankruptcy Prediction
+- **Minimum**: F1 > 0.45, AUC > 0.70
+- **Good**: F1 = 0.55-0.65, AUC = 0.75-0.85
+- **Excellent**: F1 > 0.65, AUC > 0.85
+
+### Challenge 2: Financial Health Classification
+- **Minimum**: Weighted F1 > 0.60
+- **Good**: Weighted F1 = 0.65-0.75
+- **Excellent**: Weighted F1 > 0.75
+
+### Challenge 3: Revenue Forecasting
+- **Minimum**: MAPE < 20%, Directional Accuracy > 65%
+- **Good**: MAPE = 12-18%, Directional Accuracy = 70-78%
+- **Excellent**: MAPE < 12%, Directional Accuracy > 78%
+
+**Note**: Focus on methodology and interpretation, not just achieving high scores!
+
+---
+
+## 📁 Repository Structure
+
+```
+italian-financial-challenge/
+├── README.md (this file)
+├── requirements.txt          # Python dependencies
+│
+├── docs/
+│   ├── challenge_description.md   # Complete challenge guide
+│   └── data_dictionary.md         # Variable descriptions
+│
+├── data/
+│   └── processed/
+│       ├── train_data.csv         # Training data with targets
+│       └── test_features.csv      # Test features (no targets)
+│
+├── notebooks/
+│   └── starter_template.ipynb     # Starter template (optional)
+│
+├── src/                      # Your Python modules (optional)
+│   ├── data/                 # Data processing scripts
+│   ├── models/               # Model definitions
+│   └── utils/                # Utility functions
+│
+└── configs/                  # Configuration files (optional)
+```
+
+**Recommended workflow:**
+- Do your analysis in `notebooks/`
+- Put reusable code in `src/`
+- Keep it simple - notebooks are fine for the whole project!
+
+---
+
+## 📧 Getting Help
+
+1. **Read the documentation** - Most questions are answered there
+2. **Attend office hours** - Ask specific questions
+3. **Check the FAQ** in the challenge description
+4. **Discussion forum** - Help each other (concepts only, not solutions!)
+
+**Good question:** "How should I handle the class imbalance in bankruptcy prediction?"
+**Bad question:** "Can you tell me what features to engineer?"
+
+---
+
+## 🎓 Learning Objectives
+
+By completing this challenge, you will:
+
+✓ Work with realistic financial data
+✓ Handle class imbalance in classification
+✓ Perform time series aware validation
+✓ Engineer domain-informed features
+✓ Interpret machine learning models
+✓ Communicate technical findings to business audiences
+✓ Write clean, reproducible code
+
+---
+
+## 📄 License
+
+- **Code**: Your code is your own
+- **Data**: CC-BY 4.0 (cite the source)
+- **Project**: For educational use only
+
+---
+
+**Good luck with your challenge!**
+
+Remember: The goal is to **learn** and develop your skills. Focus on understanding the problem, trying different approaches, and interpreting your results. Don't just chase high scores!
+
+If you have questions, read the documentation first, then ask for help. 🚀
+
+---
+
+**Academic Year**: 2024/2025
+**Institution**: LUISS University
